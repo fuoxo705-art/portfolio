@@ -18,7 +18,7 @@
 /* Portfolio titles stay quiet until the cover is explored. */
 #portfolio .project-card{position:relative;overflow:hidden}
 #portfolio .project-card img{display:block;transition:filter .45s ease}
-#portfolio .project-card span{position:absolute;inset:0;display:grid;place-items:center;margin:0;color:#fff;font-size:22px;letter-spacing:.06em;text-shadow:0 1px 12px #000b;opacity:0;transition:opacity .45s ease;pointer-events:none}
+#portfolio .project-card span{position:absolute;inset:0;display:grid;place-items:center;margin:0;color:#fff;font-family:"Helvetica Neue","Hiragino Sans","Yu Gothic","PingFang SC","PingFang TC",sans-serif;font-size:22px;font-weight:200;letter-spacing:.06em;text-shadow:0 1px 10px #0008;opacity:0;transition:opacity .45s ease;pointer-events:none}
 #portfolio .project-card:hover img,#portfolio .project-card:focus-visible img{filter:brightness(.72)}
 #portfolio .project-card:hover span,#portfolio .project-card:focus-visible span{opacity:1}
 
