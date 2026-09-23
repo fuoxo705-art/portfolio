@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
+  <defs>
+    <radialGradient id="fade" cx="49%" cy="48%" r="52%">
+      <stop offset="0" stop-color="#737373" stop-opacity="0.82"/>
+      <stop offset="0.26" stop-color="#7f7f7f" stop-opacity="0.7"/>
+      <stop offset="0.52" stop-color="#929292" stop-opacity="0.46"/>
+      <stop offset="0.76" stop-color="#ababab" stop-opacity="0.19"/>
+      <stop offset="1" stop-color="#c2c2c2" stop-opacity="0"/>
+    </radialGradient>
+    <filter id="frost" x="-30%" y="-30%" width="160%" height="160%">
+      <feTurbulence type="fractalNoise" baseFrequency="0.16" numOctaves="2" seed="7" result="noise"/>
+      <feDisplacementMap in="SourceGraphic" in2="noise" scale="1.1" xChannelSelector="R" yChannelSelector="G" result="frosted"/>
+      <feGaussianBlur in="frosted" stdDeviation="1.7"/>
+    </filter>
+  </defs>
+  <circle cx="32" cy="32" r="27" fill="url(#fade)" filter="url(#frost)"/>
+</svg>

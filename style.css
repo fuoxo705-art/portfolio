@@ -18,7 +18,7 @@
 /* Portfolio titles stay quiet until the cover is explored. */
 #portfolio .project-card{position:relative;overflow:hidden}
 #portfolio .project-card img{display:block;transition:filter .45s ease}
-#portfolio .project-card span{position:absolute;inset:0;display:grid;place-items:center;margin:0;color:#fff;font-family:"Yu Gothic Light","YuGothic","Hiragino Kaku Gothic ProN","PingFang SC","PingFang TC",sans-serif;font-size:20px;font-weight:100;font-feature-settings:"palt";letter-spacing:.28em;text-shadow:none;opacity:.88;transition:opacity .45s ease;pointer-events:none}
+#portfolio .project-card span{position:absolute;inset:0;display:grid;place-items:center;margin:0;color:#fff;font-family:"Yu Gothic Light","YuGothic","Hiragino Kaku Gothic ProN","PingFang SC","PingFang TC",sans-serif;font-size:20px;font-weight:100;font-feature-settings:"palt";letter-spacing:.28em;text-shadow:none;opacity:0;transition:opacity .45s ease;pointer-events:none}
 #portfolio .project-card:hover img,#portfolio .project-card:focus-visible img{filter:brightness(.72)}
 #portfolio .project-card:hover span,#portfolio .project-card:focus-visible span{opacity:1}
 
