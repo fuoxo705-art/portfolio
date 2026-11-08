@@ -111,9 +111,15 @@ freeWall.addEventListener('dragstart',e=>e.preventDefault());freeWall.addEventLi
 
 // Preserve the PDF's continuous layout while supporting wheels, touch and keys.
 const volarScroll=document.querySelector('.volar-scroll');
+const volarTrack=document.querySelector('.volar-track'),volarThumb=document.querySelector('.volar-thumb');
 const volarPrev=document.querySelector('#volar-prev'),volarNext=document.querySelector('#volar-next');
 function moveVolar(direction){volarScroll.scrollBy({left:direction*volarScroll.clientWidth*.8,behavior:matchMedia('(prefers-reduced-motion:reduce)').matches?'instant':'smooth'})}
-function updateVolarControls(){volarPrev.disabled=volarScroll.scrollLeft<=1;volarNext.disabled=volarScroll.scrollLeft>=volarScroll.scrollWidth-volarScroll.clientWidth-1}
+function updateVolarControls(){
+ const max=Math.max(0,volarScroll.scrollWidth-volarScroll.clientWidth),progress=max?volarScroll.scrollLeft/max:0;
+ const width=Math.min(volarTrack.clientWidth,Math.max(28,volarTrack.clientWidth*volarScroll.clientWidth/Math.max(1,volarScroll.scrollWidth)));
+ volarThumb.style.width=width+'px';volarThumb.style.transform=`translateX(${progress*(volarTrack.clientWidth-width)}px)`;
+ volarTrack.setAttribute('aria-valuenow',String(Math.round(progress*100)));
+ volarPrev.disabled=volarScroll.scrollLeft<=1;volarNext.disabled=volarScroll.scrollLeft>=volarScroll.scrollWidth-volarScroll.clientWidth-1}
 volarScroll.addEventListener('wheel',e=>{if(e.ctrlKey||e.metaKey)return;const delta=Math.abs(e.deltaX)>Math.abs(e.deltaY)?e.deltaX:e.deltaY;if(!delta)return;e.preventDefault();volarScroll.scrollLeft+=delta*(e.deltaMode===1?16:e.deltaMode===2?volarScroll.clientWidth:1)},{passive:false});
 volarPrev.addEventListener('click',()=>moveVolar(-1));
 volarNext.addEventListener('click',()=>moveVolar(1));
@@ -122,3 +128,20 @@ window.addEventListener('resize',updateVolarControls);
 window.addEventListener('hashchange',updateVolarControls);
 document.addEventListener('keydown',e=>{if(!document.body.classList.contains('volar-view')||e.altKey||e.ctrlKey||e.metaKey)return;if(e.key==='Escape'){location.hash='portfolio';return}if(e.target.closest('button,a,input,textarea,select'))return;if(e.key==='ArrowRight'||e.key==='ArrowLeft'){e.preventDefault();moveVolar(e.key==='ArrowRight'?1:-1)}else if(e.key==='Home'||e.key==='End'){e.preventDefault();volarScroll.scrollLeft=e.key==='Home'?0:volarScroll.scrollWidth}});
 updateVolarControls();
+
+let volarTrackDrag=null;
+function seekVolarTrack(clientX,offset){
+ const bounds=volarTrack.getBoundingClientRect(),travel=bounds.width-volarThumb.getBoundingClientRect().width;
+ volarScroll.scrollLeft=Math.max(0,Math.min(1,(clientX-bounds.left-offset)/Math.max(1,travel)))*(volarScroll.scrollWidth-volarScroll.clientWidth);
+}
+volarTrack.addEventListener('pointerdown',e=>{
+ if(e.button!==0)return;e.preventDefault();
+ const thumb=volarThumb.getBoundingClientRect();
+ const offset=e.clientX>=thumb.left&&e.clientX<=thumb.right?e.clientX-thumb.left:thumb.width/2;
+ volarTrackDrag={id:e.pointerId,offset};volarTrack.setPointerCapture(e.pointerId);volarTrack.focus({preventScroll:true});seekVolarTrack(e.clientX,offset);
+});
+volarTrack.addEventListener('pointermove',e=>{if(volarTrackDrag?.id===e.pointerId)seekVolarTrack(e.clientX,volarTrackDrag.offset)});
+function endVolarTrackDrag(e){if(volarTrackDrag?.id!==e.pointerId)return;volarTrackDrag=null;if(volarTrack.hasPointerCapture(e.pointerId))volarTrack.releasePointerCapture(e.pointerId)}
+volarTrack.addEventListener('pointerup',endVolarTrackDrag);
+volarTrack.addEventListener('pointercancel',endVolarTrackDrag);
+volarTrack.addEventListener('lostpointercapture',()=>{volarTrackDrag=null});
