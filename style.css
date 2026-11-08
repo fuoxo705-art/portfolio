@@ -59,3 +59,9 @@ body.volar-view header{background:#000;color:#eee;text-shadow:none;box-shadow:no
 .volar-toolbar a:hover,.volar-controls button:hover{color:#fff}
 .volar-controls{display:flex;gap:18px}.volar-controls button{min-width:36px;min-height:40px;font-size:20px}.volar-controls button:disabled{opacity:.25;cursor:default}
 @media(max-width:760px){#work-volar{padding-top:125px}.volar-scroll{height:calc(100dvh - 190px)}.volar-strip{padding:12px 6vw 20px}.volar-toolbar{height:65px;padding:0 22px;font-size:11px;gap:12px}.volar-hint{display:none}.volar-controls{gap:8px}}
+
+/* Keep mobile portfolio covers uniform across source photo ratios. */
+@media(max-width:760px){
+ #portfolio .project-card{aspect-ratio:3/2}
+ #portfolio .project-card img{width:100%;height:100%;max-height:none;object-fit:cover;object-position:center}
+}
