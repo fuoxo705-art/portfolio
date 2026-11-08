@@ -54,7 +54,7 @@ body.volar-view header{background:#000;color:#eee;text-shadow:none;box-shadow:no
 #work-volar{height:100dvh;padding-top:100px;background:#000}
 .volar-scroll{height:calc(100dvh - 170px);width:100%;overflow-x:auto;overflow-y:hidden;overscroll-behavior-x:contain;scrollbar-width:thin;scrollbar-color:#555 #000;outline-offset:-3px}
 .volar-strip{display:flex;align-items:center;width:max-content;height:100%;padding:24px 5vw 30px;gap:0}
-.volar-strip img{display:block;flex:none;height:100%;width:auto;max-width:none;aspect-ratio:2240/1200;object-fit:contain;user-select:none}
+.volar-strip img{display:block;flex:none;height:90%;width:auto;max-width:none;aspect-ratio:2240/1200;object-fit:contain;user-select:none}
 .volar-toolbar{height:70px;padding:0 38px;display:flex;align-items:center;justify-content:space-between;gap:20px;font-size:12px;letter-spacing:.06em;color:#aaa}
 .volar-toolbar a:hover,.volar-controls button:hover{color:#fff}
 .volar-controls{display:flex;gap:18px}.volar-controls button{min-width:36px;min-height:40px;font-size:20px}.volar-controls button:disabled{opacity:.25;cursor:default}
